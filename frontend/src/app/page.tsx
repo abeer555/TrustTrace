@@ -23,6 +23,11 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [simulating, setSimulating] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const fetchAll = useCallback(async () => {
     try {
@@ -70,7 +75,7 @@ export default function DashboardPage() {
         <div>
           <h1 className="page-title">Security Overview</h1>
           <p className="page-subtitle">
-            Real-time behavioral anomaly detection · Last updated {lastRefresh.toLocaleTimeString()}
+            Real-time behavioral anomaly detection {mounted ? `· Last updated ${lastRefresh.toLocaleTimeString()}` : ''}
           </p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
